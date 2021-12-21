@@ -42,7 +42,7 @@ class _SplashAdViewState extends State<SplashAdView> {
         widget.callBack!.onSkip!();
         break;
       case "onAdShowEnd":
-        widget.callBack!.onShow!();
+        widget.callBack!.onShowEnd!();
         break;
       case "onAdShowError":
         widget.callBack!.onSkip!();
