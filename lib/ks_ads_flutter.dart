@@ -78,43 +78,44 @@ class KsAdsFlutter {
     });
   }
 
-  ///设置激励视频监听
+ ///设置激励视频监听
   static StreamSubscription initRewardStream(KsRewardVideoCallback callback) {
-    StreamSubscription _adStream =
-        adEventEvent.receiveBroadcastStream().listen((data) {
+    StreamSubscription _adStream = adEventEvent.receiveBroadcastStream().listen((data) {
       if (data['adType'] != 'rewardAd') {
-        switch (data['method']) {
-          case 'onLoad':
-            callback.onLoad!();
-            break;
-          case 'onShow':
-            callback.onShow!();
-            break;
-          case 'onError':
-            callback.onFail!(data['errorMessage']);
-            break;
-          case 'onWillVisible':
-            break;
-          case 'onClick':
-            callback.onClick!();
-            break;
-          case 'onFinish':
-            callback.onFinish!();
-            break;
-          case 'onClosed':
-            callback.onClose!();
-            break;
-          case 'onReward':
-            callback.onReward!();
-            break;
-          case 'onSkip':
-            callback.onSkip!();
-            break;
-        }
+        return;
+      }
+      switch (data['method']){
+        case 'onLoad':
+          callback.onLoad!();
+          break;
+        case 'onShow':
+          callback.onShow!();
+          break;
+        case 'onError':
+          callback.onFail!(data['errorMessage']);
+          break;
+        case 'onWillVisible':
+          break;
+        case 'onClick':
+          callback.onClick!();
+          break;
+        case 'onFinish':
+          callback.onFinish!();
+          break;
+        case 'onClosed':
+          callback.onClose!();
+          break;
+        case 'onReward':
+          callback.onReward!();
+          break;
+        case 'onSkip':
+          callback.onSkip!();
+          break;
       }
     });
     return _adStream;
   }
+
 
   ///激励视频
   static Widget rewardVideoView({
