@@ -96,6 +96,13 @@ StreamSubscription _adStream = KsAdsFlutter.initRewardStream(KsRewardVideoCallba
       },
     ));
 ```
-
+#### 4、开屏
+```Dart
+ KsAdsFlutter.splashAdView(
+          androidCodeId: "开屏广告ID",
+          callBack: SplashViewCallback(
+              onSkip: () {}, onShow: () {}, onFail: (message) {})),
+    )
+```
 ## 联系方式
 * Email: 1204493146@qq.com
