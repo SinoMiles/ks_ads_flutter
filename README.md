@@ -1,7 +1,7 @@
 # 快手联盟广告sdk Flutter版本
 
 ## 简介
-  ks_ads_flutter是一款集成了快手联盟广告sdk的Flutter插件,目前仅支持显示激励视频功能，剩余功能正在开发
+  ks_ads_flutter是一款集成了快手联盟广告sdk的Flutter插件,目前仅支持显示开屏和激励视频功能，剩余功能正在开发
 
 ## 官方文档
 * [Android](https://static.yximgs.com/udata/pkg/KS-Android-KSAdSDk/doc/4701b963d40a77bc0f45fd71d30b57da44.pdf)
