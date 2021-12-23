@@ -104,5 +104,4 @@ StreamSubscription _adStream = KsAdsFlutter.initRewardStream(KsRewardVideoCallba
               onSkip: () {}, onShow: () {}, onFail: (message) {})),
     )
 ```
-## 联系方式
-* Email: 1204493146@qq.com
+
