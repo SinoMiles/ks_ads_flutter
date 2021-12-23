@@ -11,7 +11,7 @@
 #### 1、pubspec.yaml
 ```Dart
 ks_ads_flutter:
-  git: https://github.com/Guardiany/ks_ads_flutter.git
+  git: https://github.com/SinoMiles/ks_ads_flutter.git
 ```
 
 #### 2、IOS
