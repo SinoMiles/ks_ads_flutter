@@ -19,10 +19,14 @@ class KsAdsFlutter {
     return await _channel.invokeMethod('getSdkVersion');
   }
 
-  static Widget splashAdView(
-      {required String androidCodeId, SplashViewCallback? callBack}) {
+  static Widget splashAdView({
+    required String androidCodeId,
+    SplashViewCallback? callBack,
+    String? iosCodeId,
+  }) {
     return SplashAdView(
       androidCodeId: androidCodeId,
+      iosidCodeId: iosCodeId,
       callBack: callBack,
     );
   }
@@ -78,13 +82,14 @@ class KsAdsFlutter {
     });
   }
 
- ///设置激励视频监听
+  ///设置激励视频监听
   static StreamSubscription initRewardStream(KsRewardVideoCallback callback) {
-    StreamSubscription _adStream = adEventEvent.receiveBroadcastStream().listen((data) {
+    StreamSubscription _adStream =
+        adEventEvent.receiveBroadcastStream().listen((data) {
       if (data['adType'] != 'rewardAd') {
         return;
       }
-      switch (data['method']){
+      switch (data['method']) {
         case 'onLoad':
           callback.onLoad!();
           break;
@@ -115,7 +120,6 @@ class KsAdsFlutter {
     });
     return _adStream;
   }
-
 
   ///激励视频
   static Widget rewardVideoView({
