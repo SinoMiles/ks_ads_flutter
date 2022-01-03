@@ -30,7 +30,10 @@
 }
 
 - (void)sendEvent:(NSDictionary *)event {
-    eventSink(event);
+    if(eventSink!=nil)
+    { eventSink(event);
+    }
+   
 }
 
 @end
