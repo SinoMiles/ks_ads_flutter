@@ -8,6 +8,7 @@ KsFlutterEvent *ad_event;
 
 @implementation KsAdsFlutterPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
+    ad_event = [[KsFlutterEvent alloc] initWithRegistrar:registrar];
   FlutterMethodChannel* channel = [FlutterMethodChannel
       methodChannelWithName:@"ks_ads_flutter"
             binaryMessenger:[registrar messenger]];
@@ -15,7 +16,7 @@ KsFlutterEvent *ad_event;
   [registrar addMethodCallDelegate:instance channel:channel];
   [registrar registerViewFactory:[[RewardVideoViewFactory alloc] initWithMessenger:registrar.messenger] withId:@"com.ahd.ks_ads.reward_video"];
   [registrar registerViewFactory:[[SplashViewFactory alloc] initWithMessenger:registrar.messenger] withId:@"com.miles.ksAd/SplashAdView"];
-  ad_event = [[KsFlutterEvent alloc] initWithRegistrar:registrar];
+
 }
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
