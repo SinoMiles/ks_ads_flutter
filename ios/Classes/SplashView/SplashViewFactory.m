@@ -3,8 +3,6 @@
 
 
 
-
-
 @interface SplashView () <KSSplashAdViewDelegate>
 
 @end
@@ -21,15 +19,20 @@
   return self;
 }
 
-- (NSObject<FlutterPlatformView>*)createWithFrame:(CGRect)frame
-                                   viewIdentifier:(int64_t)viewId
-                                        arguments:(id _Nullable)args {
-  return [[SplashView alloc] initWithFrame:frame
-                              viewIdentifier:viewId
-                                   arguments:args
-                             binaryMessenger:_messenger];
+//- (NSObject<FlutterPlatformView>*)createWithFrame:(CGRect)frame
+//                                   viewIdentifier:(int64_t)viewId
+//                                        arguments:(id _Nullable)args {
+////  return [[SplashView alloc] initWithFrame:frame
+////                              viewIdentifier:viewId
+////                                   arguments:args
+////                             binaryMessenger:_messenger];
+//    SplashView *splashView = [[SplashView alloc] initWithFrame:frame viewIdentifier:viewId arguments:args binaryMessenger:_messenger];
+//    return  SplashView
+//}
+- (nonnull NSObject<FlutterPlatformView> *)createWithFrame:(CGRect)frame viewIdentifier:(int64_t)viewId arguments:(id _Nullable)args {
+    SplashView *videoView = [[SplashView alloc] initWithFrame:frame viewIdentifier:viewId arguments:args binaryMessenger:_messenger];
+    return videoView;
 }
-
 @end
 
 @implementation SplashView {
@@ -47,9 +50,8 @@
     _channel = [FlutterMethodChannel methodChannelWithName:methodName binaryMessenger:messenger];
     _container = [[UIWindow alloc] initWithFrame:frame];
     _container.rootViewController = [[UIApplication sharedApplication] keyWindow].rootViewController;
-    splashAdView= [[KSSplashAdView alloc] initWithPosId:@"8705000008"];
+    splashAdView= [[KSSplashAdView alloc] initWithPosId:@"8879000003"];
     splashAdView.delegate=self;
-
     splashAdView.rootViewController=_container.rootViewController;
     [splashAdView loadAdData];
   return self;
@@ -78,6 +80,7 @@
     [_channel invokeMethod:@"onSkip" arguments:nil];
     [splashAdView removeFromSuperview];
     splashAdView=nil;
+    [_channel invokeMethod:@"onSkip" arguments:nil];
 }
 
 - (void)ksad_splashAd:(KSSplashAdView *)splashAdView didClick:(BOOL)onZoomOutState {
