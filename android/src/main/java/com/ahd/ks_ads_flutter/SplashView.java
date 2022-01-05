@@ -79,7 +79,7 @@ class SplashView  implements PlatformView {
 
                             @Override
                             public void onAdShowEnd() {
-                                channel.invokeMethod("onAdShowEnd","");
+                                channel.invokeMethod("onSkip","");
                             }
 
                             @Override
