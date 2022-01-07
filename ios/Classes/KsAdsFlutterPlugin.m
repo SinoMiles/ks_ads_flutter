@@ -3,7 +3,7 @@
 #import "RewardVideoViewFactory.h"
 #import "KsRewardVideo.h"
 #import "KsFlutterEvent.h"
-
+#import "SplashView/SplashViewFactory.h"
 KsFlutterEvent *ad_event;
 
 @implementation KsAdsFlutterPlugin
@@ -14,6 +14,7 @@ KsFlutterEvent *ad_event;
   KsAdsFlutterPlugin* instance = [[KsAdsFlutterPlugin alloc] init];
   [registrar addMethodCallDelegate:instance channel:channel];
   [registrar registerViewFactory:[[RewardVideoViewFactory alloc] initWithMessenger:registrar.messenger] withId:@"com.ahd.ks_ads.reward_video"];
+    [registrar registerViewFactory:[[SplashViewFactory alloc] initWithMessenger:registrar.messenger] withId:@"com.miles.ksAd/SplashAdView"];
   ad_event = [[KsFlutterEvent alloc] initWithRegistrar:registrar];
 }
 
