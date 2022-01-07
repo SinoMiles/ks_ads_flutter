@@ -31,16 +31,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String _platformVersion = 'Unknown';
-  String _sdkVersion = 'Unknown';
-  bool? _registerResult;
-
   StreamSubscription? _adStream;
 
   @override
   void initState() {
     super.initState();
-    initPlatformState();
+
     _initSdk();
     _adStream = KsAdsFlutter.initRewardStream(KsRewardVideoCallback(
       onLoad: () {
@@ -71,35 +67,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   _initSdk() async {
-    _registerResult = await KsAdsFlutter.register(
-      iosAppId: '561000005',
+    await KsAdsFlutter.register(
+      iosAppId: '870500005',
       androidAppId: '561000009',
       appName: '123456',
     );
-    setState(() {});
-  }
-
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    String sdkVersionl;
-    try {
-      platformVersion =
-          await KsAdsFlutter.platformVersion ?? 'Unknown platform version';
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-    try {
-      sdkVersionl = await KsAdsFlutter.sdkVersion ?? 'Unknown Sdk version';
-    } on PlatformException {
-      sdkVersionl = 'Failed to get sdk version.';
-    }
-
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-      _sdkVersion = sdkVersionl;
-    });
   }
 
   @override
@@ -111,7 +83,15 @@ class _HomePageState extends State<HomePage> {
       body: KsAdsFlutter.splashAdView(
           androidCodeId: "8705000005",
           callBack: SplashViewCallback(
-              onSkip: () {}, onShow: () {}, onFail: (message) {})),
+              onSkip: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return RewardView();
+                }));
+              },
+              onShow: () {},
+              onFail: (message) {
+                print(message);
+              })),
     );
   }
 
@@ -119,5 +99,73 @@ class _HomePageState extends State<HomePage> {
   void dispose() {
     super.dispose();
     _adStream?.cancel();
+  }
+}
+
+class RewardView extends StatefulWidget {
+  const RewardView({Key? key}) : super(key: key);
+
+  @override
+  _RewardViewState createState() => _RewardViewState();
+}
+
+class _RewardViewState extends State<RewardView> {
+  String _sdkVersion = "";
+  late StreamSubscription _streamSubscription;
+  @override
+  void initState() {
+    super.initState();
+    _streamSubscription =
+        KsAdsFlutter.initRewardStream(KsRewardVideoCallback(onLoad: () {
+      print("加载中。。。");
+    }, onFail: (message) {
+      print(message);
+    }));
+    KsAdsFlutter.loadRewardVideo(iosPosId: "8705000017", androidPosId: "");
+    initPlatformState();
+  }
+
+  Future<void> initPlatformState() async {
+    String sdkVersionl;
+
+    try {
+      sdkVersionl = await KsAdsFlutter.sdkVersion ?? 'Unknown Sdk version';
+    } on PlatformException {
+      sdkVersionl = 'Failed to get sdk version.';
+    }
+
+    if (!mounted) return;
+
+    setState(() {
+      _sdkVersion = sdkVersionl;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("sdk version: " + _sdkVersion),
+            SizedBox(
+              height: 50,
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  KsAdsFlutter.showReardVideo();
+                },
+                child: Text("显示激励视频")),
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _streamSubscription.cancel();
+    super.dispose();
   }
 }
