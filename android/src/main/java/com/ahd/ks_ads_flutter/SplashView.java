@@ -89,7 +89,7 @@ class SplashView  implements PlatformView {
 
                             @Override
                             public void onSkippedAd() {
-                                channel.invokeMethod("onSkippedAd","");
+                                channel.invokeMethod("onSkip","");
                             }
 
                             @Override
